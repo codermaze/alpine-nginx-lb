@@ -1,0 +1,10 @@
+node_modules
+.DS_Store
+npm-debug.log
+go
+.idea
+.idea/*
+src
+src_old
+.envrc
+ts-box
