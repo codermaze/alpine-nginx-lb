@@ -27,3 +27,13 @@ docker-compose.yaml - is used to bring up application containers to be loadbalan
 ```
     npm stop
 ```
+
+### URL's to be accessible by the loadbalancer
+
+[Server 1 Direct](http://localhost:3200/ui/app/firstapp) 
+[Server 2 Direct](http://localhost:3300/ui/app/secondapp) 
+[Server 3 Direct](http://localhost:3400/ui/app/thirdapp) 
+
+[Server 1 LB](http://localhost/ui/app/firstapp) 
+[Server 2 LB](http://localhost/ui/app/secondapp) 
+[Server 3 LB](http://localhost/ui/app/thirdapp) 
