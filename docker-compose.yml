@@ -1,0 +1,38 @@
+version: '2'
+services:
+    sample-app-engine-1:
+        image: dockermaker/sample-app-engine-1:latest
+        restart: always
+        ports:
+          - "3200:3100"
+        environment:
+          PLATFORM_HOST: http://localhost
+          PORT: 3100
+          NODE_ENV: local
+    sample-app-engine-2:
+        image: dockermaker/sample-app-engine-2:latest
+        restart: always
+        ports:
+          - "3300:3100"
+        environment:
+          PLATFORM_HOST: http://localhost
+          PORT: 3100
+          NODE_ENV: local
+    sample-app-engine-3:
+        image: dockermaker/sample-app-engine-3:latest
+        restart: always
+        ports:
+          - "3400:3100"
+        environment:
+          PLATFORM_HOST: http://localhost
+          PORT: 3100
+          NODE_ENV: local
+    nginx:
+        build: build/loadbalancer
+        restart: always
+        ports:
+            - "80:80"
+        depends_on:
+            - sample-app-engine-1
+            - sample-app-engine-2
+            - sample-app-engine-3

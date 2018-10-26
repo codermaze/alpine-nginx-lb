@@ -1,0 +1,17 @@
+{
+  "name": "alpine-nginx-lb",
+  "version": "0.1.0",
+  "description": "nginx loadbalancer scaffold",
+  "main": "index.js",
+  "scripts": {
+    "start": "docker-compose -f docker-compose.yml -p local-app-lb up -d",
+    "stop": "docker-compose -f docker-compose.yml -p local-app-lb down"
+  },
+  "author": "Hari Mukkapati",
+  "license": "ISC",
+  "dependencies": {
+  },
+  "engines": {
+    "node": ">10.12.0"
+  }
+}
