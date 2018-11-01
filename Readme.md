@@ -37,3 +37,24 @@ docker-compose.yaml - is used to bring up application containers to be loadbalan
 [Server 1 LB](http://localhost/ui/app/firstapp) 
 [Server 2 LB](http://localhost/ui/app/secondapp) 
 [Server 3 LB](http://localhost/ui/app/thirdapp) 
+
+
+### Multiple sites with multiple docker containers 
+
+#### Add below to hosts file
+127.0.0.1 qa1.test.com
+127.0.0.1 qa1a.test.com
+127.0.0.1 qa2.test.com
+127.0.0.1 qa2.internal.test.com
+
+Adding above hosts are to have those sample domains working on local machines. If you make any changes to the host names, also modify the same in conf.d file in build/loadbalancer/conf.d.
+
+For real domains that can be resolved, shouldn't need these to be added to hosts file or to the conf.d file.
+
+#### Now only below urls will work
+http://qa1.test.com:8000/ui/app/firstapp
+http://qa2.test.com:8000/ui/app/secondapp
+http://qa2.internal.com:8000/ui/app/thridapp
+
+PORT 8000 is used for test purposes, so, we dont have any other port conflicts when running locally with port 80.
+try the above domain combinations with different paths will throw 404.

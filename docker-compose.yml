@@ -24,7 +24,7 @@ services:
         ports:
           - "3400:3100"
         environment:
-          PLATFORM_HOST: http://qa3.internal.test.com
+          PLATFORM_HOST: http://qa2.internal.test.com
           PORT: 3100
           NODE_ENV: local
     nginx:
