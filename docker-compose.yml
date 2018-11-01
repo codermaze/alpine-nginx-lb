@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
     sample-app-engine-1:
         image: dockermaker/sample-app-engine-1:latest
@@ -6,7 +6,7 @@ services:
         ports:
           - "3200:3100"
         environment:
-          PLATFORM_HOST: http://localhost
+          PLATFORM_HOST: http://qa1.test.com
           PORT: 3100
           NODE_ENV: local
     sample-app-engine-2:
@@ -15,7 +15,7 @@ services:
         ports:
           - "3300:3100"
         environment:
-          PLATFORM_HOST: http://localhost
+          PLATFORM_HOST: http://qa2.test.com
           PORT: 3100
           NODE_ENV: local
     sample-app-engine-3:
@@ -24,14 +24,14 @@ services:
         ports:
           - "3400:3100"
         environment:
-          PLATFORM_HOST: http://localhost
+          PLATFORM_HOST: http://qa3.internal.test.com
           PORT: 3100
           NODE_ENV: local
     nginx:
         build: build/loadbalancer
         restart: always
-        ports:
-            - "80:80"
+        ports:          
+            - "8000:80"
         depends_on:
             - sample-app-engine-1
             - sample-app-engine-2
