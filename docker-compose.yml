@@ -3,36 +3,96 @@ services:
     sample-app-engine-1:
         image: dockermaker/sample-app-engine-1:latest
         restart: always
+        networks:
+          - qa1_gateway
         ports:
           - "3200:3100"
         environment:
           PLATFORM_HOST: http://qa1.test.com
+          APP_SERVER: qa1-sample-app-engine-1
           PORT: 3100
           NODE_ENV: local
     sample-app-engine-2:
         image: dockermaker/sample-app-engine-2:latest
         restart: always
+        networks:
+          - qa1_gateway
         ports:
           - "3300:3100"
         environment:
-          PLATFORM_HOST: http://qa2.test.com
+          PLATFORM_HOST: http://qa1.test.com
+          APP_SERVER: qa1-sample-app-engine-2
           PORT: 3100
           NODE_ENV: local
     sample-app-engine-3:
         image: dockermaker/sample-app-engine-3:latest
         restart: always
+        networks:
+          - qa1_gateway
         ports:
           - "3400:3100"
         environment:
-          PLATFORM_HOST: http://qa2.internal.test.com
+          PLATFORM_HOST: http://qa1.test.com
+          APP_SERVER: qa1-sample-app-engine-3
           PORT: 3100
           NODE_ENV: local
-    nginx:
+    qa2-sample-app-engine-1:
+        image: dockermaker/container_web_basic:latest
+        restart: always
+        networks:
+          - qa2_gateway
+        expose:
+          - "4100"
+        ports:
+          - "4200:4100"
+        environment:
+          PLATFORM_HOST: http://qa2.test.com
+          APP_SERVER: qa2-sample-app-engine-1
+          PORT: 4100
+          NODE_ENV: local
+    qa2-sample-app-engine-2:
+        image: dockermaker/container_web_basic:latest
+        restart: always
+        networks:
+          - qa2_gateway
+        expose:
+          - "4100"
+        ports:
+          - "4300:4100"
+        environment:
+          PLATFORM_HOST: http://qa2.test.com
+          APP_SERVER: qa2-sample-app-engine-2
+          PORT: 4100
+          NODE_ENV: local
+    qa2-sample-app-engine-3:
+        image: dockermaker/container_web_basic:latest
+        restart: always
+        networks:
+          - qa2_gateway
+        expose:
+          - "4100"
+        ports:
+          - "4400:4100"
+        environment:
+          PLATFORM_HOST: http://qa2.test.com
+          APP_SERVER: qa2-sample-app-engine-3
+          PORT: 4100
+          NODE_ENV: local
+    qa1-nginx:
         build: build/loadbalancer
         restart: always
-        ports:          
+        networks:
+          - qa1_gateway
+          - qa2_gateway
+        ports:
             - "8000:80"
         depends_on:
             - sample-app-engine-1
             - sample-app-engine-2
             - sample-app-engine-3
+            - qa2-sample-app-engine-1
+            - qa2-sample-app-engine-2
+            - qa2-sample-app-engine-3
+networks:
+  qa1_gateway: {}
+  qa2_gateway: {}
